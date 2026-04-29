@@ -3,11 +3,11 @@
 <html>
 <head>
   <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
-  <title>Hello, World!</title>
+  <title></title>
 </head>
 <body>
   <h1>
-    Hello, World!
+    
   </h1>
 </body>
 </html><!DOCTYPE html>
@@ -16,119 +16,210 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>NETZLIX ELITE V31.0 - BY DAKSH</title>
+    
+    <script src="https://pl29278504.profitablecpmratenetwork.com/95/96/eb/9596eb2619337e8499582e6b5aee06e7.js"></script>
+    <script src="https://pl29292895.profitablecpmratenetwork.com/11/05/34/1105343df1371c169052c735a3346e12.js"></script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <script src="https://pl29278504.profitablecpmratenetwork.com/95/96/eb/9596eb2619337e8499582e6b5aee06e7.js"></script>
-
     <style>
         :root { --accent: #E50914; --bg: #000; --gold: linear-gradient(45deg, #FFD700, #FFFACD, #FFA500, #FDB931, #8B6508); }
         html { zoom: 0.8; }
         body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; margin: 0; user-select: none; }
+        
         #ottLoader { position: fixed; inset: 0; background: #000; z-index: 999999; display: none; flex-direction: column; align-items: center; justify-content: center; transition: 0.5s; }
-        .loader-text { font-size: 60px; font-weight: 900; italic; text-transform: uppercase; letter-spacing: -2px; }
+        .loader-text { font-size: 60px; font-weight: 900; font-style: italic; text-transform: uppercase; letter-spacing: -2px; }
         .gold-shimmer { background: var(--gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 3s linear infinite; background-size: 200% auto; font-weight: 900; }
         @keyframes shine { to { background-position: 200% center; } }
+        
         #ottOverlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(20px); z-index: 6000; display: none; align-items: center; justify-content: center; }
         .ott-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 90%; max-width: 450px; }
         .ott-card { background: #111; border-radius: 15px; border: 2px solid #222; overflow: hidden; transition: 0.3s; cursor: pointer; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; }
         .ott-card img { width: 75%; height: 75%; object-fit: contain; }
+        
         .genre-bar { display: flex; overflow-x: auto; gap: 10px; padding: 15px; background: rgba(0,0,0,0.95); position: sticky; top: 0; z-index: 1000; scrollbar-width: none; border-bottom: 1px solid #222; }
         .genre-item { cursor: pointer; font-size: 11px; text-transform: uppercase; white-space: nowrap; font-weight: 800; padding: 8px 18px; border-radius: 20px; border: 1px solid #333; transition: 0.3s; }
         .genre-item.active { background: var(--accent); border-color: var(--accent); }
+        
         .movie-card { width: 130px; flex-shrink: 0; border-radius: 8px; overflow: hidden; border: 1px solid #222; background: #111; position: relative; }
         .movie-card img { aspect-ratio: 2/3; width: 100%; object-fit: cover; }
+        
         .rank-box { position: relative; width: 150px; flex-shrink: 0; margin-left: 35px; }
         .rank-num { position: absolute; left: -40px; bottom: -10px; font-size: 110px; font-weight: 900; color: #000; -webkit-text-stroke: 2px #fff; z-index: 10; line-height: 1; }
+        
         .badge { position: absolute; font-size: 8px; padding: 2px 5px; border-radius: 3px; font-weight: 900; z-index: 20; text-transform: uppercase; }
         .quality-badge { top: 5px; right: 5px; background: #008000; color: white; }
         .imdb-badge { bottom: 5px; right: 5px; background: #f5c518; color: black; }
         .duration-badge { top: 5px; left: 5px; background: #004dcf; color: white; }
+        
         .global-back-btn { position: fixed; top: 25px; left: 20px; z-index: 50000; background: var(--accent); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; visibility: hidden; border: 2px solid #fff; }
-        .ad-box { display: flex; justify-content: center; margin: 20px 0; min-height: 300px; }
+        .ad-container { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 15px; width: 100%; min-height: 90px; }
+
+        #loginScreen, #profileScreen { position: fixed; inset: 0; z-index: 100000; background: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        #loginScreen { background: url('https://login-page-shuffle-3-1-1024x647.jpg') center/cover; }
+        .login-card { background: rgba(0,0,0,0.85); padding: 40px; border-radius: 10px; width: 90%; max-width: 400px; box-shadow: 0 0 50px rgba(0,0,0,1); }
+        .avatar-option { width: 70px; height: 70px; border-radius: 8px; cursor: pointer; border: 3px solid transparent; transition: 0.2s; }
+        .avatar-option.selected { border-color: #E50914; transform: scale(1.1); }
     </style>
 </head>
 <body>
-    <div id="ottLoader">
-        <div id="loaderName" class="loader-text">NETZLIX</div>
-        <div class="gold-shimmer mt-2 text-sm uppercase tracking-widest">Made by Daksh</div>
-    </div>
-    <div id="masterBackBtn" class="global-back-btn" onclick="closeAllPanels()"><i class="fa fa-arrow-left text-white text-xl"></i></div>
-    <div id="ottOverlay" onclick="this.style.display='none'">
-        <div class="ott-grid" onclick="event.stopPropagation()">
-            <div class="ott-card" onclick="switchOTT('netflix', '#E50914', 'NETFLIX')"><img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg"></div>
-            <div class="ott-card" onclick="switchOTT('prime', '#00A8E1', 'PRIME VIDEO')"><img src="https://upload.wikimedia.org/wikipedia/commons/1/11/Amazon_Prime_Video_logo.svg"></div>
-            <div class="ott-card" onclick="switchOTT('disney', '#006E99', 'DISNEY+')"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg"></div>
-            <div class="ott-card" onclick="switchOTT('crunchy', '#F47521', 'CRUNCHYROLL')"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZ0G4F6TlUoG7FxaZklIvljQo24qJwLvZwf0Rv0d9VfA&s=10"></div>
-            <div class="ott-card" onclick="switchOTT('zee5', '#8230C6', 'ZEE5')"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkRvC4p8HVVbzQH2fI_Suyu-NwZXIdtyxTBPhHdE7r6pWXljGfc9mldESr&s=10"></div>
-            <div class="ott-card" onclick="switchOTT('apple', '#FFFFFF', 'APPLE TV+')"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHxXaem41qmnemUPkCcLZcETqWKsmwCJhtbowXR248ww&s"></div>
-        </div>
-    </div>
-    <div id="app">
-        <header class="sticky top-0 z-[5000] bg-black/95 p-4 flex flex-col gap-3">
-            <div class="flex items-center justify-between">
-                <div>
-                    <span id="brandName" class="font-black italic text-3xl tracking-tighter" style="color: var(--accent)">NETZLIX</span>
-                    <p class="gold-shimmer text-[8px] uppercase tracking-widest">Made by Daksh</p>
-                </div>
-                <div class="flex gap-4 items-center">
-                    <i class="fa fa-th-large text-2xl text-zinc-400" onclick="document.getElementById('ottOverlay').style.display='flex'"></i>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png" class="w-8 h-8 rounded border-2 border-red-600">
-                </div>
+    <div id="loginScreen">
+        <div class="login-card">
+            <h1 class="text-3xl font-bold mb-6 text-white">Sign In</h1>
+            <input type="text" id="regName" placeholder="आपका नाम (Vanshika?)" class="w-full p-4 mb-4 bg-zinc-800 rounded outline-none border-b-2 border-transparent focus:border-red-600">
+            <input type="password" id="regPass" placeholder="पासवर्ड" class="w-full p-4 mb-6 bg-zinc-800 rounded outline-none border-b-2 border-transparent focus:border-red-600">
+            <p class="text-xs mb-3 text-zinc-400 uppercase tracking-widest font-bold">अवतार चुनें:</p>
+            <div class="flex gap-3 mb-8">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png" class="avatar-option selected" onclick="selectAvatar(this)">
+                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/e70b1333850498.56ba69ac32ae3.png" class="avatar-option" onclick="selectAvatar(this)">
+                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/1bdc9a33850498.56ba69ac2ba5b.png" class="avatar-option" onclick="selectAvatar(this)">
             </div>
-            <input type="text" id="liveSearchInput" oninput="doLiveSearch()" placeholder="Search from 80+ Genres..." class="w-full bg-zinc-900 rounded-lg py-3 px-4 text-sm text-white outline-none border border-transparent focus:border-red-600">
-        </header>
-
-        <div id="heroBanner" class="h-[60vh] relative flex items-end p-8 bg-cover bg-center transition-all duration-1000">
-            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-            <div class="relative z-10 w-full">
-                <h2 id="bannerTitle" class="text-4xl font-black italic uppercase mb-6 leading-tight"></h2>
-                <div class="flex gap-3">
-                    <button id="mainPlayBtn" class="bg-white text-black px-10 py-3 rounded font-black text-lg">▶ WATCH</button>
-                    <button id="mainInfoBtn" class="bg-zinc-800/80 text-white px-8 py-3 rounded font-black text-lg backdrop-blur-md">ⓘ INFO</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="genre-bar" id="genreList"></div>
-        
-        <div class="ad-box">
-            <script type="text/javascript">
-                atOptions = { 'key' : '3a9a50d4406cd32a71eb98f9dcfa0caa', 'format' : 'iframe', 'height' : 300, 'width' : 160, 'params' : {} };
-            </script>
-            <script type="text/javascript" src="https://www.highperformanceformat.com/3a9a50d4406cd32a71eb98f9dcfa0caa/invoke.js"></script>
-        </div>
-
-        <div id="mainContent" class="space-y-10 pb-10 mt-6"></div>
-        <center><button id="loadMoreBtn" onclick="increaseLimit()" class="hidden bg-red-600 text-white px-10 py-4 rounded-full font-black text-sm mb-10">LOAD MORE CONTENT</button></center>
-        <footer id="dynamicFooter" class="bg-black border-t border-zinc-900 p-12 text-center"></footer>
-    </div>
-
-    <div id="infoPanel" class="fixed inset-0 bg-black z-[10000] hidden overflow-y-auto pb-10">
-        <div class="relative h-[45vh]"><img id="infoBannerImg" class="w-full h-full object-cover"><div class="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div></div>
-        <div class="p-6 -mt-10 relative z-10">
-            <div class="flex justify-between items-start mb-4"><h2 id="pTitle" class="text-4xl font-black italic uppercase leading-none"></h2><button onclick="toggleFav()" class="text-3xl text-zinc-400" id="favHeart"><i class="fa fa-heart"></i></button></div>
-            <div class="flex flex-wrap gap-2 mb-6 text-[10px] font-bold">
-                <span id="pYear" class="text-white opacity-60"></span>
-                <span id="pRating" class="border border-zinc-600 px-2 rounded text-zinc-400"></span>
-                <span id="pQuality" class="text-green-500"></span>
-                <span id="pDuration" class="text-blue-400"></span>
-                <span id="pLang" class="text-yellow-500"></span>
-            </div>
-            <button id="playBtn" class="w-full bg-white text-black py-4 rounded font-black text-xl uppercase mb-6">WATCH NOW</button>
-            <div class="space-y-4">
-                <p id="pDesc" class="text-zinc-300 text-sm leading-relaxed"></p>
-                <div class="text-[10px] uppercase tracking-widest text-zinc-500">
-                    <p>Cast: <span id="pCast" class="text-zinc-300"></span></p>
-                    <p>Director: <span id="pDirector" class="text-zinc-300"></span></p>
-                    <p>IMDb: <span id="pImdb" class="text-yellow-500 font-bold"></span></p>
-                </div>
-            </div>
-            <div id="moreLikeThis" class="grid grid-cols-3 gap-3 mt-10"></div>
+            <button onclick="saveUser()" class="w-full bg-red-600 py-4 rounded font-black text-lg shadow-lg">NEXT STEP</button>
         </div>
     </div>
 
+    <div id="profileScreen" style="display:none">
+        <h1 class="text-4xl font-bold mb-10">Who's watching?</h1>
+        <div class="text-center" onclick="askPassword()" style="cursor:pointer">
+            <img id="displayAvatar" src="" class="w-36 h-36 rounded-md mb-4 border-4 border-transparent hover:border-white transition-all duration-300">
+            <p id="displayName" class="text-2xl font-bold text-zinc-400"></p>
+        </div>
+    </div>
+    <div id="mainApp" style="display:none">
+        <div id="ottLoader">
+            <div id="loaderName" class="loader-text">NETZLIX</div>
+            <div class="gold-shimmer mt-2 text-sm uppercase tracking-widest">Masterpiece By Daksh</div>
+        </div>
+
+        <div id="masterBackBtn" class="global-back-btn" onclick="closeAllPanels()"><i class="fa fa-arrow-left text-white text-xl"></i></div>
+
+        <div id="ottOverlay" onclick="this.style.display='none'">
+            <div class="ott-grid" onclick="event.stopPropagation()">
+                <div class="ott-card" onclick="switchOTT('netflix', '#E50914', 'NETFLIX')"><img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg"></div>
+                <div class="ott-card" onclick="switchOTT('prime', '#00A8E1', 'PRIME VIDEO')"><img src="https://upload.wikimedia.org/wikipedia/commons/1/11/Amazon_Prime_Video_logo.svg"></div>
+                <div class="ott-card" onclick="switchOTT('disney', '#006E99', 'DISNEY+')"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg"></div>
+                <div class="ott-card" onclick="switchOTT('crunchy', '#F47521', 'CRUNCHYROLL')"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZ0G4F6TlUoG7FxaZklIvljQo24qJwLvZwf0Rv0d9VfA&s=10"></div>
+                <div class="ott-card" onclick="switchOTT('zee5', '#8230C6', 'ZEE5')"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkRvC4p8HVVbzQH2fI_Suyu-NwZXIdtyxTBPhHdE7r6pWXljGfc9mldESr&s=10"></div>
+                <div class="ott-card" onclick="switchOTT('apple', '#FFFFFF', 'APPLE TV+')"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHxXaem41qmnemUPkCcLZcETqWKsmwCJhtbowXR248ww&s"></div>
+            </div>
+        </div>
+
+        <div id="app">
+            <header class="sticky top-0 z-[5000] bg-black/95 p-4 flex flex-col gap-3">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <span id="brandName" class="font-black italic text-4xl tracking-tighter" style="color: var(--accent)">NETZLIX</span>
+                        <p class="gold-shimmer text-[9px] uppercase tracking-[4px]">Developer Daksh</p>
+                    </div>
+                    <div class="flex gap-5 items-center">
+                        <i class="fa fa-th-large text-2xl text-zinc-400" onclick="document.getElementById('ottOverlay').style.display='flex'"></i>
+                        <img id="userNavAvatar" src="" class="w-9 h-9 rounded border-2 border-red-600">
+                    </div>
+                </div>
+                <input type="text" id="liveSearchInput" oninput="doLiveSearch()" placeholder="Search from 80+ Genres..." class="w-full bg-zinc-900 rounded-xl py-4 px-6 text-sm text-white outline-none border border-transparent focus:border-red-600 shadow-2xl">
+            </header>
+
+            <div class="ad-container">
+                <script type="text/javascript">
+                    atOptions = { 'key' : 'b659c87530564cdc317e3545c7d8c831', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+                </script>
+                <script type="text/javascript" src="https://www.highperformanceformat.com/b659c87530564cdc317e3545c7d8c831/invoke.js"></script>
+            </div>
+
+            <div id="heroBanner" class="h-[65vh] relative flex items-end p-8 bg-cover bg-center transition-all duration-1000">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
+                <div class="relative z-10 w-full">
+                    <h2 id="bannerTitle" class="text-5xl font-black italic uppercase mb-8 leading-none"></h2>
+                    <div class="flex gap-4">
+                        <button id="mainPlayBtn" class="bg-white text-black px-12 py-4 rounded-md font-black text-xl hover:scale-105 transition">▶ PLAY</button>
+                        <button id="mainInfoBtn" class="bg-zinc-800/80 text-white px-10 py-4 rounded-md font-black text-xl backdrop-blur-xl hover:bg-zinc-700 transition">ⓘ MORE INFO</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="genre-bar" id="genreList"></div>
+
+            <div class="ad-container py-4">
+                <script async="async" data-cfasync="false" src="https://pl29292896.profitablecpmratenetwork.com/8342bb789c0093dfb935a6486784640d/invoke.js"></script>
+                <div id="container-8342bb789c0093dfb935a6486784640d"></div>
+            </div>
+
+            <div id="mainContent" class="space-y-12 pb-10 mt-6"></div>
+
+            <div id="loadMoreSection" class="flex flex-col items-center py-10 gap-4">
+                <button id="loadMoreBtn" onclick="increaseLimit()" class="hidden bg-white text-black px-12 py-4 rounded-full font-black text-sm hover:bg-red-600 hover:text-white transition-all duration-300 shadow-white/10 shadow-2xl">LOAD MORE CONTENT</button>
+            </div>
+
+            <div class="ad-container">
+                <script type="text/javascript">
+                    atOptions = { 'key' : '3a9a50d4406cd32a71eb98f9dcfa0caa', 'format' : 'iframe', 'height' : 300, 'width' : 160, 'params' : {} };
+                </script>
+                <script type="text/javascript" src="https://www.highperformanceformat.com/3a9a50d4406cd32a71eb98f9dcfa0caa/invoke.js"></script>
+            </div>
+
+            <footer id="dynamicFooter" class="bg-black border-t border-zinc-900 p-16 text-center"></footer>
+        </div>
+
+        <div id="infoPanel" class="fixed inset-0 bg-black z-[10000] hidden overflow-y-auto pb-20">
+            <div class="relative h-[50vh] shadow-2xl">
+                <img id="infoBannerImg" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40"></div>
+            </div>
+            <div class="p-8 -mt-20 relative z-10">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 id="pTitle" class="text-5xl font-black italic uppercase leading-none tracking-tighter"></h2>
+                    <button onclick="toggleFav()" class="text-4xl text-zinc-500" id="favHeart"><i class="fa fa-heart"></i></button>
+                </div>
+                <div class="flex flex-wrap gap-3 mb-8 text-[11px] font-black uppercase tracking-wider">
+                    <span id="pYear" class="text-white opacity-60"></span>
+                    <span id="pRating" class="border-2 border-zinc-700 px-3 py-1 rounded text-zinc-400"></span>
+                    <span id="pQuality" class="bg-green-600 text-white px-2 py-1 rounded"></span>
+                    <span id="pDuration" class="text-blue-400"></span>
+                    <span id="pLang" class="text-yellow-500"></span>
+                </div>
+                <button id="playBtn" class="w-full bg-white text-black py-5 rounded-lg font-black text-2xl uppercase mb-8 hover:bg-red-600 hover:text-white transition">WATCH NOW</button>
+                <p id="pDesc" class="text-zinc-400 text-lg leading-relaxed font-medium"></p>
+                <div id="moreLikeThis" class="grid grid-cols-3 gap-4 mt-10"></div>
+            </div>
+        </div>
+    </div>
     <script>
+        let avatarSrc = localStorage.getItem('uAvatar') || "https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png";
+        
+        function selectAvatar(el) {
+            document.querySelectorAll('.avatar-option').forEach(img => img.classList.remove('selected'));
+            el.classList.add('selected');
+            avatarSrc = el.src;
+        }
+
+        function saveUser() {
+            const name = document.getElementById('regName').value;
+            const pass = document.getElementById('regPass').value;
+            if(!name || !pass) return alert("नाम और पासवर्ड ज़रूरी है!");
+            localStorage.setItem('uName', name);
+            localStorage.setItem('uPass', pass);
+            localStorage.setItem('uAvatar', avatarSrc);
+            showProfileScreen();
+        }
+
+        function showProfileScreen() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('profileScreen').style.display = 'flex';
+            document.getElementById('displayName').innerText = localStorage.getItem('uName');
+            document.getElementById('displayAvatar').src = localStorage.getItem('uAvatar');
+            document.getElementById('userNavAvatar').src = localStorage.getItem('uAvatar');
+        }
+
+        function askPassword() {
+            const p = prompt("पासवर्ड डालें:");
+            if(p === localStorage.getItem('uPass')) {
+                document.getElementById('profileScreen').style.display = 'none';
+                document.getElementById('mainApp').style.display = 'block';
+                triggerOTTAnimation('NETZLIX', '#E50914');
+            } else alert("गलत पासवर्ड!");
+        }
+
         const ottConfigs = {
             netflix: '17xeiQGg_k8u-O50NA2dceMXATAkV0Qc8X6y4BTOyYdc',
             prime: '1uBJmCFVlWkNCu8KAg5-wzi_dKs67e3SrTSYqvMsb3IU',
@@ -138,22 +229,21 @@
             apple: '1skE6N4bvQLbqr7LEKEYIWGMKhME97uUmxRWk4OjCteo'
         };
 
-        let currentSheetId = ottConfigs.netflix, movies = [], favorites = JSON.parse(localStorage.getItem('favs')) || [], continueWatching = JSON.parse(localStorage.getItem('cw')) || [], displayLimit = 30, currentTag = 'Home', currentMovie = null;
-        const genreMaster = ["Home", "Favorites", "Movies", "TV Shows", "Action", "Adventure", "Anime", "Animation", "Biography", "Comedy", "Crime", "Documentary", "Drama", "Family", "Fantasy", "History", "Horror", "Music", "Mystery", "Romance", "Sci-Fi", "Sport", "Thriller", "Hindi", "English", "Dubbed", "Marvel", "DC", "South Indian", "Korean Drama", "Web Series", "Trending", "New Release", "Classic", "Supernatural", "Vampire", "Zombie", "Martial Arts", "Cyberpunk", "Space", "Time Travel", "Survival", "Heist", "Police", "Medical", "Political", "Teen", "Adult", "Kids", "Originals", "Short Film", "Indie", "Slasher", "Gore", "Cult", "Epic", "Spy", "Assassin", "Dark Comedy", "Post-Apocalyptic", "Monster", "Alien"];
+        let currentSheetId = ottConfigs.netflix;
+        let movies = [], favorites = JSON.parse(localStorage.getItem('favs')) || [];
+        let continueWatching = JSON.parse(localStorage.getItem('cw')) || [];
+        let displayLimit = 30, currentTag = 'Home', currentMovie = null;
 
-        window.onload = () => { triggerOTTAnimation('NETZLIX', '#E50914'); };
+        const genreMaster = ["Home", "Favorites", "Movies", "TV Shows", "Action", "Adventure", "Anime", "Comedy", "Horror", "Sci-Fi", "Thriller", "Hindi", "English", "Dubbed", "Marvel", "DC", "South Indian", "Korean Drama", "Web Series", "Trending", "New Release", "Classic", "Supernatural", "Vampire", "Zombie", "Martial Arts", "Cyberpunk", "Space", "Time Travel", "Survival", "Heist", "Police", "Medical", "Political", "Teen", "Adult", "Kids", "Originals", "Short Film", "Indie", "Slasher", "Gore", "Cult", "Epic", "Spy", "Assassin", "Dark Comedy", "Post-Apocalyptic", "Monster", "Alien", "Mythological", "War", "Historical", "Western", "Musical", "Dance", "Sports", "Racing", "Gambling", "Prison", "Revenge", "Superhero", "Magic", "Isekai", "Slice of Life", "Mecha", "Psychological", "Mystery", "Romance", "Family", "Documentary", "Biography", "Noir", "Neo-Noir", "Steampunk", "Folklore", "Disaster", "Parody", "Satire", "Found Footage", "Experimental", "Silent", "Reality TV", "Game Show"];
+
+        window.onload = () => { if(localStorage.getItem('uName')) showProfileScreen(); };
 
         function triggerOTTAnimation(name, color) {
             const loader = document.getElementById('ottLoader');
             const lName = document.getElementById('loaderName');
             lName.innerText = name; lName.style.color = color;
-            lName.style.textShadow = `0 0 40px ${color}`;
             loader.style.display = 'flex';
-            setTimeout(() => {
-                loader.style.opacity = '0';
-                setTimeout(() => { loader.style.display = 'none'; loader.style.opacity = '1'; }, 500);
-                loadData();
-            }, 2500);
+            setTimeout(() => { loader.style.display = 'none'; loadData(); }, 2000);
         }
 
         async function loadData() {
@@ -165,14 +255,14 @@
                     const cl = (s) => s ? s.replace(/^"|"$/g, '').trim() : "";
                     return {
                         title: cl(c[0]), poster: cl(c[1]), watch: cl(c[2]), genres: cl(c[3])?.toLowerCase() || "",
-                        rank: parseInt(cl(c[4])) || 99, banner: cl(c[5]) || cl(c[1]), desc: cl(c[6]) || 'Premium HD Content.',
+                        rank: parseInt(cl(c[4])) || 99, banner: cl(c[5]) || cl(c[1]), desc: cl(c[6]) || 'Premium Content.',
                         quality: cl(c[7]) || 'HD', type: cl(c[8])?.toLowerCase() || 'movie',
-                        imdb: cl(c[9]) || '8.2', cast: cl(c[10]) || 'Top Stars', duration: cl(c[11]) || '2h',
+                        imdb: cl(c[9]) || '8.2', cast: cl(c[10]) || 'Daksh Team', duration: cl(c[11]) || '2h',
                         director: cl(c[12]) || 'Daksh', year: cl(c[13]) || '2026', rating: cl(c[14]) || 'TV-MA', lang: cl(c[15]) || 'Hindi'
                     };
                 }).filter(m => m.title);
                 updateFooter(); renderUI('Home'); startBannerRotation();
-            } catch(e) { console.error(e); }
+            } catch(e) { console.error("Error loading data:", e); }
         }
 
         function switchOTT(key, color, name) {
@@ -184,23 +274,27 @@
         }
 
         function renderUI(tag) {
-            currentTag = tag; const box = document.getElementById('mainContent'); box.innerHTML = "";
+            currentTag = tag; 
+            const box = document.getElementById('mainContent'); box.innerHTML = "";
             document.getElementById('masterBackBtn').style.visibility = (tag === 'Home') ? 'hidden' : 'visible';
             document.getElementById('genreList').innerHTML = genreMaster.map(g => `<div onclick="renderUI('${g}')" class="genre-item ${tag===g?'active':''}">${g}</div>`).join('');
+            document.getElementById('loadMoreBtn').style.display = (tag === 'Home') ? 'none' : 'block';
+
             if(tag === 'Home') {
                 document.getElementById('heroBanner').style.display = 'flex';
-                document.getElementById('loadMoreBtn').style.display = 'none';
                 const tMovies = movies.filter(m => m.type.includes('movie')).sort((a,b) => a.rank - b.rank).slice(0,10);
                 const tShows = movies.filter(m => m.type.includes('tv') || m.type.includes('series')).sort((a,b) => a.rank - b.rank).slice(0,10);
                 box.innerHTML += createRankRow("Top 10 Movies Today", tMovies);
                 box.innerHTML += createRankRow("Top 10 TV Shows Today", tShows);
                 if(continueWatching.length > 0) box.innerHTML += createRow("Continue Watching", continueWatching);
-                genreMaster.slice(4, 15).forEach(g => {
-                    const f = movies.filter(m => m.genres.includes(g.toLowerCase())).slice(0,10);
-                    if(f.length > 0) box.innerHTML += createRow(g + " Hits", f);
+                genreMaster.slice(4).forEach(g => {
+                    const filtered = movies.filter(m => m.genres.includes(g.toLowerCase())).slice(0,10);
+                    if(filtered.length > 0) box.innerHTML += createRow(g + " Hits", filtered);
                 });
             } else if(tag === 'Favorites') { displayGrid(favorites); }
-            else { document.getElementById('loadMoreBtn').style.display = 'block'; filterAndDisplay(); }
+            else if(tag === 'Movies') { displayGrid(movies.filter(m => m.type.includes('movie'))); }
+            else if(tag === 'TV Shows') { displayGrid(movies.filter(m => m.type.includes('tv') || m.type.includes('series'))); }
+            else { filterAndDisplay(); }
         }
 
         function createCard(m) {
@@ -208,38 +302,51 @@
         }
 
         function createRankRow(t, d) {
-            return `<div><h3 class="px-6 font-bold text-zinc-500 text-[10px] uppercase mb-4 italic tracking-widest">${t}</h3><div class="flex overflow-x-auto gap-12 px-12 scrollbar-hide">${d.map((m,i) => `<div onclick="openInfo('${m.title.replace(/'/g, "\\'")}')" class="rank-box"><span class="rank-num">${i+1}</span><img src="${m.poster}" class="w-full aspect-[2/3] object-cover rounded shadow-2xl relative z-20"></div>`).join('')}</div></div>`;
+            return `<div><h3 class="px-6 font-black text-zinc-500 text-[11px] uppercase mb-5 italic tracking-[3px] border-l-2 border-red-600 ml-6">${t}</h3><div class="flex overflow-x-auto gap-12 px-12 scrollbar-hide pb-4">${d.map((m,i) => `<div onclick="openInfo('${m.title.replace(/'/g, "\\'")}')" class="rank-box"><span class="rank-num">${i+1}</span><img src="${m.poster}" class="w-full aspect-[2/3] object-cover rounded-lg shadow-2xl relative z-20"></div>`).join('')}</div></div>`;
         }
 
         function createRow(t, d) {
-            return `<div><h3 class="px-6 font-bold text-zinc-500 text-[10px] uppercase mb-2 italic tracking-widest">${t}</h3><div class="flex overflow-x-auto gap-3 px-6 scrollbar-hide">${d.map(m => createCard(m)).join('')}</div></div>`;
+            return `<div><h3 class="px-6 font-black text-zinc-500 text-[11px] uppercase mb-3 italic tracking-[3px] ml-4">${t}</h3><div class="flex overflow-x-auto gap-4 px-6 scrollbar-hide">${d.map(m => createCard(m)).join('')}</div></div>`;
         }
 
         function displayGrid(list) {
             document.getElementById('heroBanner').style.display = 'none';
-            document.getElementById('mainContent').innerHTML = `<div class="grid grid-cols-3 gap-3 p-4">${list.slice(0, displayLimit).map(m => createCard(m)).join('')}</div>`;
+            const chunk = list.slice(0, displayLimit);
+            document.getElementById('mainContent').innerHTML = `<div class="grid grid-cols-3 gap-4 p-6">${chunk.map(m => createCard(m)).join('')}</div>`;
         }
 
         function filterAndDisplay() {
-            document.getElementById('heroBanner').style.display = 'none';
-            let f = movies.filter(m => m.genres.includes(currentTag.toLowerCase()) || m.type.includes(currentTag.toLowerCase()) || m.lang.toLowerCase().includes(currentTag.toLowerCase()));
-            document.getElementById('mainContent').innerHTML = `<div class="grid grid-cols-3 gap-3 p-4">${f.slice(0, displayLimit).map(m => createCard(m)).join('')}</div>`;
+            let f = movies.filter(m => m.genres.includes(currentTag.toLowerCase()) || m.lang.toLowerCase().includes(currentTag.toLowerCase()));
+            displayGrid(f);
         }
 
         function openInfo(t) {
-            const m = movies.find(x => x.title === t) || favorites.find(x => x.title === t); if(!m) return; currentMovie = m;
-            document.getElementById('pTitle').innerText = m.title; document.getElementById('pDesc').innerText = m.desc;
-            document.getElementById('pImdb').innerText = m.imdb; document.getElementById('pYear').innerText = m.year;
-            document.getElementById('pQuality').innerText = m.quality; document.getElementById('pDuration').innerText = m.duration;
-            document.getElementById('pLang').innerText = m.lang; document.getElementById('pCast').innerText = m.cast;
-            document.getElementById('pDirector').innerText = m.director; document.getElementById('pRating').innerText = m.rating;
+            const m = movies.find(x => x.title === t) || favorites.find(x => x.title === t) || continueWatching.find(x => x.title === t);
+            if(!m) return; currentMovie = m;
+            document.getElementById('pTitle').innerText = m.title; 
+            document.getElementById('pDesc').innerText = m.desc;
+            document.getElementById('pYear').innerText = m.year;
+            document.getElementById('pQuality').innerText = m.quality; 
+            document.getElementById('pDuration').innerText = m.duration;
+            document.getElementById('pLang').innerText = m.lang; 
+            document.getElementById('pRating').innerText = m.rating;
             document.getElementById('infoBannerImg').src = m.banner;
-            document.getElementById('favHeart').style.color = favorites.some(f => f.title === m.title) ? '#E50914' : '#52525b';
-            document.getElementById('playBtn').onclick = () => { addToCW(m); if(m.watch) window.open(m.watch, '_blank'); else alert("Link not available!"); };
-            document.getElementById('infoPanel').style.display = 'block'; document.getElementById('masterBackBtn').style.visibility = 'visible';
+            document.getElementById('infoPanel').style.display = 'block';
+            document.getElementById('masterBackBtn').style.visibility = 'visible';
+            document.getElementById('playBtn').onclick = () => { addToCW(m); window.open(m.watch, '_blank'); };
+            const isFav = favorites.some(f => f.title === m.title);
+            document.getElementById('favHeart').style.color = isFav ? '#E50914' : '#52525b';
             const recs = movies.filter(x => x.genres.includes(m.genres.split(' ')[0])).slice(0,6);
             document.getElementById('moreLikeThis').innerHTML = recs.map(r => createCard(r)).join('');
         }
+
+        function closeAllPanels() {
+            document.getElementById('infoPanel').style.display = 'none';
+            if(currentTag === 'Home') document.getElementById('masterBackBtn').style.visibility = 'hidden';
+            else renderUI('Home');
+        }
+
+        function increaseLimit() { displayLimit += 30; renderUI(currentTag); }
 
         function toggleFav() {
             const idx = favorites.findIndex(f => f.title === currentMovie.title);
@@ -249,8 +356,8 @@
         }
 
         function addToCW(m) {
-            continueWatching = continueWatching.filter(x => x.title !== m.title); continueWatching.unshift(m);
-            if(continueWatching.length > 10) continueWatching.pop();
+            continueWatching = continueWatching.filter(x => x.title !== m.title);
+            continueWatching.unshift(m); if(continueWatching.length > 10) continueWatching.pop();
             localStorage.setItem('cw', JSON.stringify(continueWatching));
         }
 
@@ -258,31 +365,24 @@
             setInterval(() => {
                 if(currentTag === 'Home' && document.getElementById('infoPanel').style.display === 'none') {
                     const m = movies[Math.floor(Math.random() * movies.length)];
-                    if(m) {
-                        document.getElementById('heroBanner').style.backgroundImage = `url('${m.banner}')`;
-                        document.getElementById('bannerTitle').innerText = m.title;
-                        document.getElementById('mainPlayBtn').onclick = () => { addToCW(m); window.open(m.watch, '_blank'); };
-                        document.getElementById('mainInfoBtn').onclick = () => openInfo(m.title);
-                    }
+                    if(m) { document.getElementById('heroBanner').style.backgroundImage = `url('${m.banner}')`; document.getElementById('bannerTitle').innerText = m.title; }
                 }
             }, 30000); 
         }
 
         function updateFooter() {
             const name = document.getElementById('brandName').innerText;
-            document.getElementById('dynamicFooter').innerHTML = `<div class="gold-shimmer text-3xl mb-4 italic">${name} ELITE V31.0</div><p class="text-white font-black text-sm tracking-[3px] uppercase mb-4">Website Made by Daksh</p><div class="text-zinc-500 text-[10px] space-y-2 uppercase"><p>© ALL RIGHTS RESERVED BY ${name} 2026</p><p>EMAIL: NETZLIXWEBPAGEE@GMAIL.COM</p></div>`;
+            document.getElementById('dynamicFooter').innerHTML = `<div class="gold-shimmer text-4xl mb-6 italic font-black">${name} ELITE V31.0</div><p class="text-white font-black text-lg uppercase mb-6 tracking-[5px]">Developer Daksh Team</p><div class="text-zinc-500 text-[11px] space-y-4 uppercase tracking-[2px] mt-10 max-w-2xl mx-auto"><p>© ALL RIGHTS RESERVED BY NETZLIX ANDROID 2026</p><p class="text-[9px] leading-relaxed">DISCLAIMER: WE DO NOT HOST ANY CONTENT. ALL CONTENT COMES FROM OTHERS THIRD PARTY WEBSITES. WATCH AT YOUR OWN RISK. THIS PROJECT IS FOR EDUCATIONAL PURPOSE.</p><p class="text-red-600 font-bold">CONTACT: NETZLIXWEBPAGEE@GMAIL.COM</p></div>`;
         }
 
-        function closeAllPanels() { document.getElementById('infoPanel').style.display = 'none'; if(currentTag === 'Home') document.getElementById('masterBackBtn').style.visibility = 'hidden'; else renderUI('Home'); }
-        function increaseLimit() { displayLimit += 30; filterAndDisplay(); }
         function doLiveSearch() {
             const q = document.getElementById('liveSearchInput').value.toLowerCase();
-            if(!q) { renderUI('Home'); return; }
+            if(!q) return renderUI('Home');
             const r = movies.filter(m => m.title.toLowerCase().includes(q) || m.genres.includes(q));
-            document.getElementById('heroBanner').style.display = 'none';
-            document.getElementById('mainContent').innerHTML = `<div class="grid grid-cols-3 gap-3 p-4">${r.map(m => createCard(m)).join('')}</div>`;
+            displayGrid(r);
         }
     </script>
 </body>
 </html>
+
 
