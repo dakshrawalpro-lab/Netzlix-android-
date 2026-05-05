@@ -11,6 +11,18 @@
   </h1>
 </body>
 </html><!DOCTYPE html>
+
+<html>
+<head>
+  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+  <title></title>
+</head>
+<body>
+  <h1>
+  
+  </h1>
+</body>
+</html><!DOCTYPE html>
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
@@ -25,9 +37,21 @@
     
     <style>
         :root { --accent: #E50914; --bg: #000; --gold: linear-gradient(45deg, #FFD700, #FFFACD, #FFA500, #FDB931, #8B6508); }
-        html { zoom: 0.8; }
-        body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; margin: 0; user-select: none; }
+        html { zoom: 0.6; }
+        body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; margin: 0; user-select: none; transition: background 0.3s, color 0.3s; }
         
+        /* LIGHT MODE STYLES */
+        body.light-mode { background: #ffffff; color: #111; }
+        body.light-mode header { background: rgba(255, 255, 255, 0.95) !important; }
+        body.light-mode #liveSearchInput { background: #f0f0f0; color: #000; border-color: #ddd; }
+        body.light-mode .genre-bar { background: rgba(240, 240, 240, 0.95); border-color: #ddd; }
+        body.light-mode .genre-item { color: #333; border-color: #ccc; }
+        body.light-mode .movie-card { background: #f9f9f9; border-color: #eee; }
+        body.light-mode #infoPanel { background: #ffffff; }
+        body.light-mode #pDesc { color: #444; }
+        body.light-mode #dynamicFooter { background: #f4f4f4; border-color: #ddd; }
+        body.light-mode .rank-num { -webkit-text-stroke: 2px #000; color: #fff; }
+
         #ottLoader { position: fixed; inset: 0; background: #000; z-index: 999999; display: none; flex-direction: column; align-items: center; justify-content: center; transition: 0.5s; }
         .loader-text { font-size: 60px; font-weight: 900; font-style: italic; text-transform: uppercase; letter-spacing: -2px; }
         .gold-shimmer { background: var(--gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 3s linear infinite; background-size: 200% auto; font-weight: 900; }
@@ -37,10 +61,9 @@
         .ott-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 90%; max-width: 450px; }
         .ott-card { background: #111; border-radius: 15px; border: 2px solid #222; overflow: hidden; transition: 0.3s; cursor: pointer; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; }
         .ott-card img { width: 75%; height: 75%; object-fit: contain; }
-        
         .genre-bar { display: flex; overflow-x: auto; gap: 10px; padding: 15px; background: rgba(0,0,0,0.95); position: sticky; top: 0; z-index: 1000; scrollbar-width: none; border-bottom: 1px solid #222; }
         .genre-item { cursor: pointer; font-size: 11px; text-transform: uppercase; white-space: nowrap; font-weight: 800; padding: 8px 18px; border-radius: 20px; border: 1px solid #333; transition: 0.3s; }
-        .genre-item.active { background: var(--accent); border-color: var(--accent); }
+        .genre-item.active { background: var(--accent); border-color: var(--accent); color: white; }
         
         .movie-card { width: 130px; flex-shrink: 0; border-radius: 8px; overflow: hidden; border: 1px solid #222; background: #111; position: relative; }
         .movie-card img { aspect-ratio: 2/3; width: 100%; object-fit: cover; }
@@ -52,6 +75,7 @@
         .quality-badge { top: 5px; right: 5px; background: #008000; color: white; }
         .imdb-badge { bottom: 5px; right: 5px; background: #f5c518; color: black; }
         .duration-badge { top: 5px; left: 5px; background: #004dcf; color: white; }
+        .timestamp-badge { bottom: 5px; left: 5px; background: rgba(0,0,0,0.7); color: #fff; font-size: 7px; }
         
         .global-back-btn { position: fixed; top: 25px; left: 20px; z-index: 50000; background: var(--accent); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; visibility: hidden; border: 2px solid #fff; }
         .ad-container { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 15px; width: 100%; min-height: 90px; }
@@ -61,31 +85,66 @@
         .login-card { background: rgba(0,0,0,0.85); padding: 40px; border-radius: 10px; width: 90%; max-width: 400px; box-shadow: 0 0 50px rgba(0,0,0,1); }
         .avatar-option { width: 70px; height: 70px; border-radius: 8px; cursor: pointer; border: 3px solid transparent; transition: 0.2s; }
         .avatar-option.selected { border-color: #E50914; transform: scale(1.1); }
+
+        .skeleton { background: linear-gradient(90deg, #111 25%, #222 50%, #111 75%); background-size: 200% 100%; animation: skeleton-loading 1.5s infinite; }
+        @keyframes skeleton-loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+        .skeleton-card { width: 130px; height: 195px; border-radius: 8px; flex-shrink: 0; }
+        .skeleton-grid-item { width: 100%; aspect-ratio: 2/3; border-radius: 8px; } #toast {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: rgba(229, 9, 20, 0.9); color: white; padding: 12px 25px;
+            border-radius: 50px; font-weight: 800; font-size: 14px; z-index: 1000000;
+            display: none; box-shadow: 0 5px 15px rgba(0,0,0,0.5); animation: slideUp 0.3s ease;
+        }
+        @keyframes slideUp { from { bottom: 0; opacity: 0; } to { bottom: 30px; opacity: 1; } }
+        
+        #themeToggle { cursor: pointer; transition: 0.3s; }
+
+        /* Filter Controls */
+        .filter-controls { display: flex; gap: 10px; padding: 0 16px 10px; }
+        .filter-select { background: #111; border: 1px solid #333; color: white; font-size: 12px; padding: 5px 10px; border-radius: 5px; outline: none; }
+        body.light-mode .filter-select { background: #f0f0f0; border-color: #ddd; color: #000; }
+        
+        /* Video Trailer Styling */
+        #trailerPlayer { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; display: none; }
+
+        /* Search History Styles */
+        #searchHistoryBox { display: none; padding: 10px 20px; background: #0a0a0a; border-bottom: 1px solid #222; }
+        body.light-mode #searchHistoryBox { background: #f9f9f9; border-color: #eee; }
+        .history-tag { display: inline-flex; align-items: center; background: #222; color: #aaa; padding: 4px 12px; border-radius: 15px; margin-right: 8px; margin-bottom: 8px; font-size: 11px; cursor: pointer; }
+        .history-tag i { margin-left: 8px; font-size: 10px; color: #666; }
+        body.light-mode .history-tag { background: #e2e2e2; color: #444; }
+
+        /* User Review Styles */
+        .star-rating { display: flex; gap: 5px; margin: 15px 0; }
+        .star-rating i { font-size: 24px; cursor: pointer; color: #333; transition: 0.2s; }
+        .star-rating i.active { color: #f5c518; }
+        .review-card { background: #111; padding: 15px; border-radius: 10px; border: 1px solid #222; margin-bottom: 15px; }
+        body.light-mode .review-card { background: #f4f4f4; border-color: #ddd; }
     </style>
 </head>
-<body>
+<body><div id="toast"></div>
+
     <div id="loginScreen">
         <div class="login-card">
             <h1 class="text-3xl font-bold mb-6 text-white">Sign In</h1>
-            <input type="text" id="regName" placeholder="आपका नाम (Vanshika?)" class="w-full p-4 mb-4 bg-zinc-800 rounded outline-none border-b-2 border-transparent focus:border-red-600">
-            <input type="password" id="regPass" placeholder="पासवर्ड" class="w-full p-4 mb-6 bg-zinc-800 rounded outline-none border-b-2 border-transparent focus:border-red-600">
+            <input type="text" id="regName" placeholder="आपका नाम (Vanshika?)" class="w-full p-4 mb-4 bg-zinc-800 rounded outline-none border-b-2 border-transparent focus:border-red-600 text-white">
+            <input type="password" id="regPass" placeholder="पासवर्ड" class="w-full p-4 mb-6 bg-zinc-800 rounded outline-none border-b-2 border-transparent focus:border-red-600 text-white">
             <p class="text-xs mb-3 text-zinc-400 uppercase tracking-widest font-bold">अवतार चुनें:</p>
             <div class="flex gap-3 mb-8">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png" class="avatar-option selected" onclick="selectAvatar(this)">
                 <img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/e70b1333850498.56ba69ac32ae3.png" class="avatar-option" onclick="selectAvatar(this)">
                 <img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/1bdc9a33850498.56ba69ac2ba5b.png" class="avatar-option" onclick="selectAvatar(this)">
             </div>
-            <button onclick="saveUser()" class="w-full bg-red-600 py-4 rounded font-black text-lg shadow-lg">NEXT STEP</button>
+            <button onclick="saveUser()" class="w-full bg-red-600 py-4 rounded font-black text-lg shadow-lg text-white">NEXT STEP</button>
+            <button onclick="showProfileScreen()" class="w-full mt-4 text-zinc-400 text-sm font-bold uppercase">View Existing Profiles</button>
         </div>
+    </div><div id="profileScreen" style="display:none">
+        <h1 class="text-4xl font-bold mb-10 text-white">Who's watching?</h1>
+        <div id="profilesWrapper" class="flex flex-wrap justify-center gap-8 px-10">
+            </div>
+        <button onclick="document.getElementById('profileScreen').style.display='none'; document.getElementById('loginScreen').style.display='flex';" class="mt-12 border border-zinc-600 px-6 py-2 text-zinc-500 font-bold hover:text-white hover:border-white transition">ADD PROFILE</button>
     </div>
 
-    <div id="profileScreen" style="display:none">
-        <h1 class="text-4xl font-bold mb-10">Who's watching?</h1>
-        <div class="text-center" onclick="askPassword()" style="cursor:pointer">
-            <img id="displayAvatar" src="" class="w-36 h-36 rounded-md mb-4 border-4 border-transparent hover:border-white transition-all duration-300">
-            <p id="displayName" class="text-2xl font-bold text-zinc-400"></p>
-        </div>
-    </div>
     <div id="mainApp" style="display:none">
         <div id="ottLoader">
             <div id="loaderName" class="loader-text">NETZLIX</div>
@@ -106,21 +165,58 @@
         </div>
 
         <div id="app">
-            <header class="sticky top-0 z-[5000] bg-black/95 p-4 flex flex-col gap-3">
+            <header class="sticky top-0 z-[5000] bg-black/95 p-4 flex flex-col gap-3 transition-colors duration-300">
                 <div class="flex items-center justify-between">
                     <div>
                         <span id="brandName" class="font-black italic text-4xl tracking-tighter" style="color: var(--accent)">NETZLIX</span>
                         <p class="gold-shimmer text-[9px] uppercase tracking-[4px]">Developer Daksh</p>
                     </div>
                     <div class="flex gap-5 items-center">
+                        <i id="themeToggle" class="fa fa-moon text-2xl text-zinc-400" onclick="toggleTheme()"></i>
                         <i class="fa fa-th-large text-2xl text-zinc-400" onclick="document.getElementById('ottOverlay').style.display='flex'"></i>
-                        <img id="userNavAvatar" src="" class="w-9 h-9 rounded border-2 border-red-600">
+                        <img id="userNavAvatar" src="" class="w-9 h-9 rounded border-2 border-red-600" onclick="location.reload()" style="cursor:pointer">
                     </div>
                 </div>
-                <input type="text" id="liveSearchInput" oninput="doLiveSearch()" placeholder="Search from 80+ Genres..." class="w-full bg-zinc-900 rounded-xl py-4 px-6 text-sm text-white outline-none border border-transparent focus:border-red-600 shadow-2xl">
-            </header>
+                <input type="text" id="liveSearchInput" oninput="doLiveSearch()" onfocus="showHistory()" placeholder="Search from 80+ Genres..." class="w-full bg-zinc-900 rounded-xl py-4 px-6 text-sm text-white outline-none border border-transparent focus:border-red-600 shadow-2xl transition-all">
+                
+                <div id="searchHistoryBox">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">Recent Searches</span>
+                        <span onclick="clearHistory()" class="text-[10px] text-red-600 font-bold uppercase cursor-pointer">Clear All</span>
+                    </div>
+                    <div id="historyTags"></div>
+                </div>
 
-            <div class="ad-container">
+                <div class="filter-controls">
+                    <select id="yearFilter" onchange="applyFilters()" class="filter-select">
+                        <option value="All">All Years</option>
+                        <option value="2026">2026</option>
+                        <option value="2025">2025</option>
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                        <option value="2019">2019</option>
+                        <option value="2018">2018</option>
+                        <option value="2017">2017</option>
+                        <option value="2017">2017</option>
+                        <option value="2016">2016</option>
+                        <option value="2015">2015</option>
+                        <option value="2014">2014</option>
+                        <option value="2013">2013</option>
+                        <option value="2012">2012</option>
+                        <option value="2011">2011</option>
+                        <option value="2010">2010</option> 
+                        <option value="2009">2009</option>
+                    </select>
+                    <select id="ratingSort" onchange="applyFilters()" class="filter-select">
+                        <option value="Default">Sort By Rating</option>
+                        <option value="High">IMDb High to Low</option>
+                        <option value="Low">IMDb Low to High</option>
+                    </select>
+                </div>
+            </header><div class="ad-container">
                 <script type="text/javascript">
                     atOptions = { 'key' : 'b659c87530564cdc317e3545c7d8c831', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
                 </script>
@@ -128,9 +224,12 @@
             </div>
 
             <div id="heroBanner" class="h-[65vh] relative flex items-end p-8 bg-cover bg-center transition-all duration-1000">
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
-                <div class="relative z-10 w-full">
-                    <h2 id="bannerTitle" class="text-5xl font-black italic uppercase mb-8 leading-none"></h2>
+                <video id="trailerPlayer" muted playsinline onended="stopTrailer()"></video>
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent z-10"></div>
+                <div class="relative z-20 w-full">
+                    <div id="bannerLogoContainer" class="mb-8">
+                        <h2 id="bannerTitle" class="text-5xl font-black italic uppercase leading-none text-white"></h2>
+                    </div>
                     <div class="flex gap-4">
                         <button id="mainPlayBtn" class="bg-white text-black px-12 py-4 rounded-md font-black text-xl hover:scale-105 transition">▶ PLAY</button>
                         <button id="mainInfoBtn" class="bg-zinc-800/80 text-white px-10 py-4 rounded-md font-black text-xl backdrop-blur-xl hover:bg-zinc-700 transition">ⓘ MORE INFO</button>
@@ -141,7 +240,7 @@
             <div class="genre-bar" id="genreList"></div>
 
             <div class="ad-container py-4">
-                <script async="async" data-cfasync="false" src="https://pl29292896.profitablecpmratenetwork.com/8342bb789c0093dfb935a6486784640d/invoke.js"></script>
+                <script async="async" data-cfasync="false" src="https://pl2929292896.profitablecpmratenetwork.com/8342bb789c0093dfb935a6486784640d/invoke.js"></script>
                 <div id="container-8342bb789c0093dfb935a6486784640d"></div>
             </div>
 
@@ -149,9 +248,7 @@
 
             <div id="loadMoreSection" class="flex flex-col items-center py-10 gap-4">
                 <button id="loadMoreBtn" onclick="increaseLimit()" class="hidden bg-white text-black px-12 py-4 rounded-full font-black text-sm hover:bg-red-600 hover:text-white transition-all duration-300 shadow-white/10 shadow-2xl">LOAD MORE CONTENT</button>
-            </div>
-
-            <div class="ad-container">
+            </div><div class="ad-container">
                 <script type="text/javascript">
                     atOptions = { 'key' : '3a9a50d4406cd32a71eb98f9dcfa0caa', 'format' : 'iframe', 'height' : 300, 'width' : 160, 'params' : {} };
                 </script>
@@ -168,19 +265,40 @@
             </div>
             <div class="p-8 -mt-20 relative z-10">
                 <div class="flex justify-between items-start mb-6">
-                    <h2 id="pTitle" class="text-5xl font-black italic uppercase leading-none tracking-tighter"></h2>
+                    <div id="pLogoContainer" class="flex-1">
+                        <h2 id="pTitle" class="text-5xl font-black italic uppercase leading-none tracking-tighter"></h2>
+                    </div>
                     <button onclick="toggleFav()" class="text-4xl text-zinc-500" id="favHeart"><i class="fa fa-heart"></i></button>
                 </div>
                 <div class="flex flex-wrap gap-3 mb-8 text-[11px] font-black uppercase tracking-wider">
-                    <span id="pYear" class="text-white opacity-60"></span>
-                    <span id="pRating" class="border-2 border-zinc-700 px-3 py-1 rounded text-zinc-400"></span>
+                    <span id="pYear" class="opacity-60"></span>
+                    <span id="pRating" class="border-2 border-zinc-700 px-3 py-1 rounded"></span>
                     <span id="pQuality" class="bg-green-600 text-white px-2 py-1 rounded"></span>
                     <span id="pDuration" class="text-blue-400"></span>
                     <span id="pLang" class="text-yellow-500"></span>
                 </div>
                 <button id="playBtn" class="w-full bg-white text-black py-5 rounded-lg font-black text-2xl uppercase mb-8 hover:bg-red-600 hover:text-white transition">WATCH NOW</button>
-                <p id="pDesc" class="text-zinc-400 text-lg leading-relaxed font-medium"></p>
-                <div id="moreLikeThis" class="grid grid-cols-3 gap-4 mt-10"></div>
+                <button id="pTrailerBtn" class="w-full bg-zinc-800 text-white py-3 rounded-lg font-bold uppercase mb-8 hidden" onclick="playCurrentTrailer()">Watch Trailer</button>
+                <p id="pDesc" class="text-lg leading-relaxed font-medium"></p>
+                
+                <div class="mt-12 border-t border-zinc-800 pt-8">
+                    <h3 class="text-xl font-black uppercase italic mb-6">User Reviews & Ratings</h3>
+                    <div id="reviewInputArea" class="bg-zinc-900 p-6 rounded-xl mb-10">
+                        <p class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-2">Rate this title:</p>
+                        <div class="star-rating" id="starInput">
+                            <i class="fa fa-star" onclick="setRating(1)"></i>
+                            <i class="fa fa-star" onclick="setRating(2)"></i>
+                            <i class="fa fa-star" onclick="setRating(3)"></i>
+                            <i class="fa fa-star" onclick="setRating(4)"></i>
+                            <i class="fa fa-star" onclick="setRating(5)"></i>
+                        </div>
+                        <textarea id="reviewComment" placeholder="Write your thoughts..." class="w-full bg-zinc-800 p-4 rounded-lg outline-none text-sm text-white border border-transparent focus:border-red-600 mb-4 h-24"></textarea>
+                        <button onclick="submitReview()" class="bg-red-600 text-white px-8 py-3 rounded font-black text-xs uppercase">Submit Review</button>
+                    </div>
+                    <div id="reviewsList" class="space-y-4"></div>
+                </div>
+
+                <div id="moreLikeThis" class="grid grid-cols-4 gap-4 mt-10"></div>
             </div>
         </div>
     </div>
@@ -197,27 +315,77 @@
             const name = document.getElementById('regName').value;
             const pass = document.getElementById('regPass').value;
             if(!name || !pass) return alert("नाम और पासवर्ड ज़रूरी है!");
+            
+            // Multi-Profile Logic
+            let profiles = JSON.parse(localStorage.getItem('netzlixProfiles')) || [];
+            profiles.push({ name: name, pass: pass, avatar: avatarSrc });
+            localStorage.setItem('netzlixProfiles', JSON.stringify(profiles));
+            
+            // Set current session
             localStorage.setItem('uName', name);
             localStorage.setItem('uPass', pass);
             localStorage.setItem('uAvatar', avatarSrc);
+            
             showProfileScreen();
         }
 
         function showProfileScreen() {
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('profileScreen').style.display = 'flex';
-            document.getElementById('displayName').innerText = localStorage.getItem('uName');
-            document.getElementById('displayAvatar').src = localStorage.getItem('uAvatar');
-            document.getElementById('userNavAvatar').src = localStorage.getItem('uAvatar');
+            
+            const wrapper = document.getElementById('profilesWrapper');
+            let profiles = JSON.parse(localStorage.getItem('netzlixProfiles')) || [];
+            
+            // If no profiles exist, show one default from old storage if it exists
+            if(profiles.length === 0 && localStorage.getItem('uName')) {
+                profiles.push({
+                    name: localStorage.getItem('uName'),
+                    pass: localStorage.getItem('uPass'),
+                    avatar: localStorage.getItem('uAvatar')
+                });
+                localStorage.setItem('netzlixProfiles', JSON.stringify(profiles));
+            }
+
+            wrapper.innerHTML = profiles.map((p, index) => `
+                <div class="text-center group" onclick="askPassword(${index})" style="cursor:pointer">
+                    <div class="relative">
+                        <img src="${p.avatar}" class="w-32 h-32 rounded-md mb-4 border-4 border-transparent group-hover:border-white transition-all duration-300">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all"></div>
+                    </div>
+                    <p class="text-xl font-bold text-zinc-400 group-hover:text-white transition">${p.name}</p>
+                </div>
+            `).join('');
         }
 
-        function askPassword() {
-            const p = prompt("पासवर्ड डालें:");
-            if(p === localStorage.getItem('uPass')) {
+        function askPassword(index) {
+            let profiles = JSON.parse(localStorage.getItem('netzlixProfiles'));
+            const selectedUser = profiles[index];
+            
+            const p = prompt(`${selectedUser.name} का पासवर्ड डालें:`);
+            if(p === selectedUser.pass) {
+                // Update active user data
+                localStorage.setItem('uName', selectedUser.name);
+                localStorage.setItem('uPass', selectedUser.pass);
+                localStorage.setItem('uAvatar', selectedUser.avatar);
+                
+                document.getElementById('userNavAvatar').src = selectedUser.avatar;
                 document.getElementById('profileScreen').style.display = 'none';
                 document.getElementById('mainApp').style.display = 'block';
                 triggerOTTAnimation('NETZLIX', '#E50914');
             } else alert("गलत पासवर्ड!");
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.getElementById('themeToggle');
+            body.classList.toggle('light-mode');
+            if (body.classList.contains('light-mode')) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'light');
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'dark');
+            }
         }
 
         const ottConfigs = {
@@ -232,11 +400,26 @@
         let currentSheetId = ottConfigs.netflix;
         let movies = [], favorites = JSON.parse(localStorage.getItem('favs')) || [];
         let continueWatching = JSON.parse(localStorage.getItem('cw')) || [];
-        let displayLimit = 30, currentTag = 'Home', currentMovie = null;
+        let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+        let userReviews = JSON.parse(localStorage.getItem('userReviews')) || {};
+        let displayLimit = 30, currentTag = 'Home', currentMovie = null, currentRating = 0;
 
-        const genreMaster = ["Home", "Favorites", "Movies", "TV Shows", "Action", "Adventure", "Anime", "Comedy", "Horror", "Sci-Fi", "Thriller", "Hindi", "English", "Dubbed", "Marvel", "DC", "South Indian", "Korean Drama", "Web Series", "Trending", "New Release", "Classic", "Supernatural", "Vampire", "Zombie", "Martial Arts", "Cyberpunk", "Space", "Time Travel", "Survival", "Heist", "Police", "Medical", "Political", "Teen", "Adult", "Kids", "Originals", "Short Film", "Indie", "Slasher", "Gore", "Cult", "Epic", "Spy", "Assassin", "Dark Comedy", "Post-Apocalyptic", "Monster", "Alien", "Mythological", "War", "Historical", "Western", "Musical", "Dance", "Sports", "Racing", "Gambling", "Prison", "Revenge", "Superhero", "Magic", "Isekai", "Slice of Life", "Mecha", "Psychological", "Mystery", "Romance", "Family", "Documentary", "Biography", "Noir", "Neo-Noir", "Steampunk", "Folklore", "Disaster", "Parody", "Satire", "Found Footage", "Experimental", "Silent", "Reality TV", "Game Show"];
+        const genreMaster = ["Home", "Favorites", "Movies", "TV Shows", "Action", "Adventure", "Anime", "Comedy", "Horror", "Sci-Fi", "Thriller", "Hindi", "English", "Dubbed", "Marvel", "DC", "South Indian", "Korean Drama", "Web Series", "Trending", "New Release", "Classic", "Supernatural", "Vampire", "Zombie", "Martial Arts", "Cyberpunk", "Space", "Time Travel", "Survival", "Heist", "Police", "Medical", "Political", "Teen", "Adult", "Kids", "Originals", "Short Film", "Indie", "Slasher", "Gore", "Cult", "Epic", "Spy", "Assassin", "Dark Comedy", "Post-Apocalyptic", "Monster", "Alien", "Mythological", "War", "Historical", "Western", "Musical", "Dance", "Sports", "Racing", "Gambling", "Prison", "Revenge", "Superhero", "Magic", "Isekai", "Slice of Life", "Mecha", "Psychological", "Mystery", "Romance", "Family", "Documentary", "Biography", "Noir", "Neo-Noir", "Steampunk", "Folklore", "Disaster", "Parody", "Satire", "Found Footage", "Experimental", "Silent", "Reality TV", "Science Fiction", "Game Show"];
 
-        window.onload = () => { if(localStorage.getItem('uName')) showProfileScreen(); };
+        window.onload = () => { 
+            if(localStorage.getItem('netzlixProfiles') || localStorage.getItem('uName')) showProfileScreen();
+            if(localStorage.getItem('theme') === 'light') {
+                document.body.classList.add('light-mode');
+                document.getElementById('themeToggle').classList.replace('fa-moon', 'fa-sun');
+            }
+        };function showHomeSkeletons() {
+            const box = document.getElementById('mainContent');
+            box.innerHTML = `<div class="space-y-10"><div class="px-6"><div class="skeleton w-48 h-4 mb-4"></div><div class="flex gap-4 overflow-hidden">${Array(5).fill('<div class="skeleton skeleton-card"></div>').join('')}</div></div><div class="px-6"><div class="skeleton w-48 h-4 mb-4"></div><div class="flex gap-4 overflow-hidden">${Array(5).fill('<div class="skeleton skeleton-card"></div>').join('')}</div></div></div>`;
+        }
+        function showGridSkeletons() {
+            const box = document.getElementById('mainContent');
+            box.innerHTML = `<div class="grid grid-cols-4 gap-4 p-6">${Array(9).fill('<div class="skeleton skeleton-grid-item"></div>').join('')}</div>`;
+        }
 
         function triggerOTTAnimation(name, color) {
             const loader = document.getElementById('ottLoader');
@@ -248,6 +431,7 @@
 
         async function loadData() {
             try {
+                showHomeSkeletons();
                 const res = await fetch(`https://docs.google.com/spreadsheets/d/${currentSheetId}/export?format=csv&gid=0&t=${Date.now()}`);
                 const csv = await res.text();
                 movies = csv.split(/\r?\n/).slice(1).map(r => {
@@ -258,7 +442,8 @@
                         rank: parseInt(cl(c[4])) || 99, banner: cl(c[5]) || cl(c[1]), desc: cl(c[6]) || 'Premium Content.',
                         quality: cl(c[7]) || 'HD', type: cl(c[8])?.toLowerCase() || 'movie',
                         imdb: cl(c[9]) || '8.2', cast: cl(c[10]) || 'Daksh Team', duration: cl(c[11]) || '2h',
-                        director: cl(c[12]) || 'Daksh', year: cl(c[13]) || '2026', rating: cl(c[14]) || 'TV-MA', lang: cl(c[15]) || 'Hindi'
+                        director: cl(c[12]) || 'Daksh', year: cl(c[13]) || '2026', rating: cl(c[14]) || 'TV-MA', lang: cl(c[15]) || 'Hindi',
+                        trailer: cl(c[16]) || "", tmdbLogo: cl(c[17]) || ""
                     };
                 }).filter(m => m.title);
                 updateFooter(); renderUI('Home'); startBannerRotation();
@@ -273,35 +458,59 @@
             triggerOTTAnimation(name, color);
         }
 
+        function applyFilters() {
+            const year = document.getElementById('yearFilter').value;
+            const sort = document.getElementById('ratingSort').value;
+            
+            let filtered = [...movies];
+            if (year !== 'All') filtered = filtered.filter(m => m.year == year);
+            
+            if (sort === 'High') filtered.sort((a, b) => parseFloat(b.imdb) - parseFloat(a.imdb));
+            else if (sort === 'Low') filtered.sort((a, b) => parseFloat(a.imdb) - parseFloat(b.imdb));
+
+            if (currentTag === 'Home') {
+                if (year === 'All' && sort === 'Default') renderUI('Home');
+                else displayGrid(filtered);
+            } else {
+                filterAndDisplay(filtered);
+            }
+        }
+
         function renderUI(tag) {
             currentTag = tag; 
-            const box = document.getElementById('mainContent'); box.innerHTML = "";
+            const box = document.getElementById('mainContent');
             document.getElementById('masterBackBtn').style.visibility = (tag === 'Home') ? 'hidden' : 'visible';
             document.getElementById('genreList').innerHTML = genreMaster.map(g => `<div onclick="renderUI('${g}')" class="genre-item ${tag===g?'active':''}">${g}</div>`).join('');
-            document.getElementById('loadMoreBtn').style.display = (tag === 'Home') ? 'none' : 'block';
-
-            if(tag === 'Home') {
+            document.getElementById('loadMoreBtn').style.display = (tag === 'Home') ? 'none' : 'block';if(tag === 'Home') {
+                box.innerHTML = "";
                 document.getElementById('heroBanner').style.display = 'flex';
                 const tMovies = movies.filter(m => m.type.includes('movie')).sort((a,b) => a.rank - b.rank).slice(0,10);
                 const tShows = movies.filter(m => m.type.includes('tv') || m.type.includes('series')).sort((a,b) => a.rank - b.rank).slice(0,10);
                 box.innerHTML += createRankRow("Top 10 Movies Today", tMovies);
                 box.innerHTML += createRankRow("Top 10 TV Shows Today", tShows);
-                if(continueWatching.length > 0) box.innerHTML += createRow("Continue Watching", continueWatching);
+                if(continueWatching.length > 0) box.innerHTML += createCWRow("Continue Watching", continueWatching);
                 genreMaster.slice(4).forEach(g => {
                     const filtered = movies.filter(m => m.genres.includes(g.toLowerCase())).slice(0,10);
-                    if(filtered.length > 0) box.innerHTML += createRow(g + " Hits", filtered);
-                });
-            } else if(tag === 'Favorites') { displayGrid(favorites); }
-            else if(tag === 'Movies') { displayGrid(movies.filter(m => m.type.includes('movie'))); }
-            else if(tag === 'TV Shows') { displayGrid(movies.filter(m => m.type.includes('tv') || m.type.includes('series'))); }
-            else { filterAndDisplay(); }
+                    if(filtered.length > 0) box.innerHTML += createRow(g + " Hits", filtered);  });
+            } else {
+                showGridSkeletons();
+                setTimeout(() => {
+                    if(tag === 'Favorites') displayGrid(favorites);
+                    else if(tag === 'Movies') displayGrid(movies.filter(m => m.type.includes('movie')));
+                    else if(tag === 'TV Shows') displayGrid(movies.filter(m => m.type.includes('tv') || m.type.includes('series')));
+                    else filterAndDisplay();
+                }, 300);
+            }
         }
 
         function createCard(m) {
             return `<div onclick="openInfo('${m.title.replace(/'/g, "\\'")}')" class="movie-card"><div class="badge duration-badge">${m.duration}</div><div class="badge quality-badge">${m.quality}</div><div class="badge imdb-badge">★ ${m.imdb}</div><img src="${m.poster}" loading="lazy"></div>`;
         }
 
-        function createRankRow(t, d) {
+        function createCWCard(m) {
+            const timeAgo = m.timestamp ? getTimeAgo(m.timestamp) : 'Just Now';
+            return `<div onclick="openInfo('${m.title.replace(/'/g, "\\'")}')" class="movie-card"><div class="badge duration-badge">${m.duration}</div><div class="badge quality-badge">${m.quality}</div><div class="badge imdb-badge">★ ${m.imdb}</div><div class="badge timestamp-badge">${timeAgo}</div><img src="${m.poster}" loading="lazy"></div>`;
+        }function createRankRow(t, d) {
             return `<div><h3 class="px-6 font-black text-zinc-500 text-[11px] uppercase mb-5 italic tracking-[3px] border-l-2 border-red-600 ml-6">${t}</h3><div class="flex overflow-x-auto gap-12 px-12 scrollbar-hide pb-4">${d.map((m,i) => `<div onclick="openInfo('${m.title.replace(/'/g, "\\'")}')" class="rank-box"><span class="rank-num">${i+1}</span><img src="${m.poster}" class="w-full aspect-[2/3] object-cover rounded-lg shadow-2xl relative z-20"></div>`).join('')}</div></div>`;
         }
 
@@ -309,21 +518,33 @@
             return `<div><h3 class="px-6 font-black text-zinc-500 text-[11px] uppercase mb-3 italic tracking-[3px] ml-4">${t}</h3><div class="flex overflow-x-auto gap-4 px-6 scrollbar-hide">${d.map(m => createCard(m)).join('')}</div></div>`;
         }
 
+        function createCWRow(t, d) {
+            return `<div><h3 class="px-6 font-black text-zinc-500 text-[11px] uppercase mb-3 italic tracking-[3px] ml-4">${t}</h3><div class="flex overflow-x-auto gap-4 px-6 scrollbar-hide">${d.map(m => createCWCard(m)).join('')}</div></div>`;
+        }
+
         function displayGrid(list) {
             document.getElementById('heroBanner').style.display = 'none';
             const chunk = list.slice(0, displayLimit);
-            document.getElementById('mainContent').innerHTML = `<div class="grid grid-cols-3 gap-4 p-6">${chunk.map(m => createCard(m)).join('')}</div>`;
+            document.getElementById('mainContent').innerHTML = `<div class="grid grid-cols-4 gap-6 p-6">${chunk.map(m => createCard(m)).join('')}</div>`;
         }
 
-        function filterAndDisplay() {
-            let f = movies.filter(m => m.genres.includes(currentTag.toLowerCase()) || m.lang.toLowerCase().includes(currentTag.toLowerCase()));
+        function filterAndDisplay(sourceList = null) {
+            const list = sourceList || movies;
+            let f = list.filter(m => m.genres.includes(currentTag.toLowerCase()) || m.lang.toLowerCase().includes(currentTag.toLowerCase()));
             displayGrid(f);
         }
 
         function openInfo(t) {
             const m = movies.find(x => x.title === t) || favorites.find(x => x.title === t) || continueWatching.find(x => x.title === t);
             if(!m) return; currentMovie = m;
-            document.getElementById('pTitle').innerText = m.title; 
+            
+            const pLogoContainer = document.getElementById('pLogoContainer');
+            if(m.tmdbLogo) {
+                pLogoContainer.innerHTML = `<img src="${m.tmdbLogo}" class="h-20 object-contain mb-4">`;
+            } else {
+                pLogoContainer.innerHTML = `<h2 id="pTitle" class="text-5xl font-black italic uppercase leading-none tracking-tighter">${m.title}</h2>`;
+            }
+
             document.getElementById('pDesc').innerText = m.desc;
             document.getElementById('pYear').innerText = m.year;
             document.getElementById('pQuality').innerText = m.quality; 
@@ -334,38 +555,102 @@
             document.getElementById('infoPanel').style.display = 'block';
             document.getElementById('masterBackBtn').style.visibility = 'visible';
             document.getElementById('playBtn').onclick = () => { addToCW(m); window.open(m.watch, '_blank'); };
+            
+            const trailerBtn = document.getElementById('pTrailerBtn');
+            if(m.trailer) trailerBtn.classList.remove('hidden');
+            else trailerBtn.classList.add('hidden');
+
             const isFav = favorites.some(f => f.title === m.title);
             document.getElementById('favHeart').style.color = isFav ? '#E50914' : '#52525b';
+            
+            // Load Reviews for this movie
+            renderReviews();
+
             const recs = movies.filter(x => x.genres.includes(m.genres.split(' ')[0])).slice(0,6);
             document.getElementById('moreLikeThis').innerHTML = recs.map(r => createCard(r)).join('');
         }
 
+        function playCurrentTrailer() {
+            if(currentMovie && currentMovie.trailer) {
+                closeAllPanels();
+                playTrailer(currentMovie.trailer);
+            }
+        }
+function playTrailer(url) {
+            const player = document.getElementById('trailerPlayer');
+            player.src = url;
+            player.style.display = 'block';
+            player.play().catch(e => console.log("Auto-play blocked"));
+        }
+
+        function stopTrailer() {
+            const player = document.getElementById('trailerPlayer');
+            player.pause();
+            player.src = "";
+            player.style.display = 'none';
+        }
+
         function closeAllPanels() {
+            stopTrailer();
             document.getElementById('infoPanel').style.display = 'none';
+            document.getElementById('searchHistoryBox').style.display = 'none';
             if(currentTag === 'Home') document.getElementById('masterBackBtn').style.visibility = 'hidden';
             else renderUI('Home');
         }
 
-        function increaseLimit() { displayLimit += 30; renderUI(currentTag); }
+        function increaseLimit() { displayLimit += 30; applyFilters(); }
 
         function toggleFav() {
             const idx = favorites.findIndex(f => f.title === currentMovie.title);
-            if(idx > -1) favorites.splice(idx, 1); else favorites.push(currentMovie);
-            localStorage.setItem('favs', JSON.stringify(favorites));
-            document.getElementById('favHeart').style.color = idx > -1 ? '#52525b' : '#E50914';
+            if(idx > -1) {
+                favorites.splice(idx, 1);
+                showToast("Removed from Favorites ❌");
+            } else {
+                favorites.push(currentMovie);
+                showToast("Added to Favorites ❤️");
+            }localStorage.setItem('favs', JSON.stringify(favorites));
+            document.getElementById('favHeart').style.color = (idx > -1) ? '#52525b' : '#E50914';
         }
 
-        function addToCW(m) {
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.innerText = msg;
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 2000);
+        }function addToCW(m) {
             continueWatching = continueWatching.filter(x => x.title !== m.title);
+            m.timestamp = Date.now();
             continueWatching.unshift(m); if(continueWatching.length > 10) continueWatching.pop();
             localStorage.setItem('cw', JSON.stringify(continueWatching));
         }
 
+        function getTimeAgo(ts) {
+            const diff = Math.floor((Date.now() - ts) / 60000);
+            if (diff < 1) return 'Just Now';
+            if (diff < 60) return diff + 'm ago';
+            const hours = Math.floor(diff / 60);
+            if (hours < 24) return hours + 'h ago';
+            return Math.floor(hours / 24) + 'd ago';
+        }
+
         function startBannerRotation() {
             setInterval(() => {
-                if(currentTag === 'Home' && document.getElementById('infoPanel').style.display === 'none') {
+                if(currentTag === 'Home' && document.getElementById('infoPanel').style.display === 'none' && document.getElementById('trailerPlayer').style.display === 'none') {
                     const m = movies[Math.floor(Math.random() * movies.length)];
-                    if(m) { document.getElementById('heroBanner').style.backgroundImage = `url('${m.banner}')`; document.getElementById('bannerTitle').innerText = m.title; }
+                    if(m) { 
+                        document.getElementById('heroBanner').style.backgroundImage = `url('${m.banner}')`;
+                        const bannerLogoContainer = document.getElementById('bannerLogoContainer');
+                        if(m.tmdbLogo) {
+                            bannerLogoContainer.innerHTML = `<img src="${m.tmdbLogo}" class="h-24 object-contain">`;
+                        } else {
+                            bannerLogoContainer.innerHTML = `<h2 id="bannerTitle" class="text-5xl font-black italic uppercase leading-none text-white">${m.title}</h2>`;
+                        }
+                        if(m.trailer) {
+                            setTimeout(() => {
+                                if(currentTag === 'Home' && document.getElementById('infoPanel').style.display === 'none') playTrailer(m.trailer);
+                            }, 3000);
+                        }
+                    }
                 }
             }, 30000); 
         }
@@ -375,14 +660,125 @@
             document.getElementById('dynamicFooter').innerHTML = `<div class="gold-shimmer text-4xl mb-6 italic font-black">${name} ELITE V31.0</div><p class="text-white font-black text-lg uppercase mb-6 tracking-[5px]">Developer Daksh Team</p><div class="text-zinc-500 text-[11px] space-y-4 uppercase tracking-[2px] mt-10 max-w-2xl mx-auto"><p>© ALL RIGHTS RESERVED BY NETZLIX ANDROID 2026</p><p class="text-[9px] leading-relaxed">DISCLAIMER: WE DO NOT HOST ANY CONTENT. ALL CONTENT COMES FROM OTHERS THIRD PARTY WEBSITES. WATCH AT YOUR OWN RISK. THIS PROJECT IS FOR EDUCATIONAL PURPOSE.</p><p class="text-red-600 font-bold">CONTACT: NETZLIXWEBPAGEE@GMAIL.COM</p></div>`;
         }
 
+        // Search History Logic
+        function showHistory() {
+            if (searchHistory.length > 0) {
+                const box = document.getElementById('searchHistoryBox');
+                const tags = document.getElementById('historyTags');
+                box.style.display = 'block';
+                tags.innerHTML = searchHistory.map((h, i) => `
+                    <span class="history-tag" onclick="useHistory('${h}')">
+                        ${h} <i class="fa fa-times" onclick="removeHistoryItem(event, ${i})"></i>
+                    </span>
+                `).join('');
+            }
+        }
+
+        function useHistory(term) {
+            document.getElementById('liveSearchInput').value = term;
+            doLiveSearch();
+            document.getElementById('searchHistoryBox').style.display = 'none';
+        }
+
+        function removeHistoryItem(e, index) {
+            e.stopPropagation();
+            searchHistory.splice(index, 1);
+            localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+            showHistory();
+            if (searchHistory.length === 0) document.getElementById('searchHistoryBox').style.display = 'none';
+        }
+
+        function clearHistory() {
+            searchHistory = [];
+            localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+            document.getElementById('searchHistoryBox').style.display = 'none';
+        }
+
+        let searchTimeout;
         function doLiveSearch() {
             const q = document.getElementById('liveSearchInput').value.toLowerCase();
-            if(!q) return renderUI('Home');
+            if(!q) {
+                document.getElementById('searchHistoryBox').style.display = 'none';
+                return applyFilters();
+            }
+            
+            // Auto-save history after typing stops
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                if (q.length > 2 && !searchHistory.includes(q)) {
+                    searchHistory.unshift(q);
+                    if (searchHistory.length > 8) searchHistory.pop();
+                    localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+                }
+            }, 2000);
+
             const r = movies.filter(m => m.title.toLowerCase().includes(q) || m.genres.includes(q));
             displayGrid(r);
+        }
+
+        // Review Logic
+        function setRating(r) {
+            currentRating = r;
+            const stars = document.querySelectorAll('#starInput i');
+            stars.forEach((s, i) => {
+                if (i < r) s.classList.add('active');
+                else s.classList.remove('active');
+            });
+        }
+
+        function submitReview() {
+            const comment = document.getElementById('reviewComment').value.trim();
+            const uName = localStorage.getItem('uName') || "Anonymous";
+            const uAvatar = localStorage.getItem('uAvatar') || "";
+            
+            if (currentRating === 0) return alert("Please select a star rating!");
+            if (!comment) return alert("Please write a comment!");
+
+            const review = {
+                user: uName,
+                avatar: uAvatar,
+                rating: currentRating,
+                comment: comment,
+                date: new Date().toLocaleDateString()
+            };
+
+            if (!userReviews[currentMovie.title]) userReviews[currentMovie.title] = [];
+            userReviews[currentMovie.title].unshift(review);
+            
+            localStorage.setItem('userReviews', JSON.stringify(userReviews));
+            
+            // Reset fields
+            document.getElementById('reviewComment').value = "";
+            setRating(0);
+            renderReviews();
+            showToast("Review Posted Successfully!");
+        }
+
+        function renderReviews() {
+            const list = document.getElementById('reviewsList');
+            const reviews = userReviews[currentMovie.title] || [];
+            
+            if (reviews.length === 0) {
+                list.innerHTML = `<p class="text-zinc-600 text-sm italic">No reviews yet. Be the first to review!</p>`;
+                return;
+            }
+
+            list.innerHTML = reviews.map(r => `
+                <div class="review-card">
+                    <div class="flex items-center gap-3 mb-3">
+                        <img src="${r.avatar}" class="w-8 h-8 rounded border border-zinc-700">
+                        <div>
+                            <p class="text-xs font-black text-white">${r.user}</p>
+                            <p class="text-[9px] text-zinc-500 font-bold uppercase">${r.date}</p>
+                        </div>
+                        <div class="ml-auto flex gap-1">
+                            ${Array(5).fill(0).map((_, i) => `<i class="fa fa-star text-[10px] ${i < r.rating ? 'text-yellow-500' : 'text-zinc-700'}"></i>`).join('')}
+                        </div>
+                    </div>
+                    <p class="text-sm text-zinc-300 leading-relaxed">${r.comment}</p>
+                </div>
+            `).join('');
         }
     </script>
 </body>
 </html>
-
-
